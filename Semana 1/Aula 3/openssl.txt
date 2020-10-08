@@ -1,0 +1,18 @@
+# Encrypt
+openssl enc -e -des -in infile.txt -out ciphered.txt -k si
+
+# Change letter 'N' by 'x', and save file as ciphered_changed.txt
+tr N x < ciphered.txt > ciphered_changed.txt
+
+
+# Decrypt
+openssl enc -d -des -in ciphered.txt -out infile1.txt -k si
+
+You will note some characters change but could be valid words and
+the receiver will not notice the change.
+
+So, we will need something more to strengthen our cipher: MAC
+
+
+# Compute HMAC
+openssl dgst -sha1 -hmac si infile.txt
