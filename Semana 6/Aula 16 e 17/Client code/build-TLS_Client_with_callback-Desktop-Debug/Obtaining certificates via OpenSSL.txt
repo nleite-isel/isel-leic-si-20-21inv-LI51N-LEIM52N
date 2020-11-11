@@ -1,0 +1,41 @@
+openssl s_client -connect www.facebook.com:443
+
+You'll get a certificate chain (excluding Root CA) like this:
+---
+Certificate chain
+ 0 s:C = US, ST = California, L = Menlo Park, O = "Facebook, Inc.", CN = *.facebook.com
+   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert SHA2 High Assurance Server CA
+ 1 s:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert SHA2 High Assurance Server CA
+   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = DigiCert High Assurance EV Root CA
+---
+
+Get Root CA from Firefox and sace it to .crt
+
+// Generate the hash using the subject field of the certificate
+openssl x509 -in DigiCertHighAssuranceEVRootCA.crt -noout -subject_hash
+
+which generates the hash:
+
+244b5494
+
+ln -s DigiCertHighAssuranceEVRootCA.crt 244b5494
+
+ls -l
+
+Do the same process for the other intermediary CA certificate (DigiCertSHA2HighAssuranceServerCA.crt):
+
+openssl x509 -in DigiCertSHA2HighAssuranceServerCA.crt -noout -subject_hash
+
+which generates the hash:
+
+38ae8eda
+
+ln -s DigiCertSHA2HighAssuranceServerCA.crt 38ae8eda
+
+ls -l
+
+
+
+Test:
+
+./TLS_Client_with_callback www.facebook.com 443

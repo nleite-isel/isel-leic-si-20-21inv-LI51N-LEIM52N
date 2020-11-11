@@ -1,0 +1,29 @@
+See Slides TLS.pdf entitled "Use Our Client Program to Conduct an MITM Experiment" p. 23-29
+
+#//////////////////////////////////////////////////
+# Experiment: Man-In-The-Middle Attack
+# We simulate a DNS Cache poisoning attack. So, every time users
+# want to visit www.facebook.com, they will go to www.example.org
+
+# DNS change
+sudo gedit /etc/hosts
+
+# Add entry
+93.184.216.34 www.facebook.com
+
+# Update hosts file (Ubuntu only)
+#/etc/init.d/hostname.sh
+
+
+#//////////////////////////////////////////////////
+
+In client code, you have to use ./cert folder to enable verification of certification chain with 3 or more certificates (the case of ww.example.com)
+
+SSL_CTX_load_verify_locations(ctx, NULL, "./cert"); // If you have a certification chain with 3 or more certificates,
+                                                     // e.g., www.example.com
+//   SSL_CTX_load_verify_locations(ctx, "./cert/DigiCertHighAssuranceEVRootCA.crt", NULL); // If you have a CA root + a leaf certificate
+                                                    // e.g., www.facebook.com -> DigiCert SHA2 High Assurance Server CA (Intermediate CA)
+                                                    // -> DigiCert High Assurance EV Root CA  (Root CA)
+
+
+Then, comment the returns inside if's in verify_callback function, and the verification is not done, which is a security weakness
