@@ -123,7 +123,7 @@ app.get('/callback', function(req, res){
 	// zation header in HTTP Basic is a base64 encoded string made by concatenating the
 	// username and password together, separated by a single colon (:) character. OAuth 2.0
 	// tells us to use the client ID as the username and the client secret as the password, but
-	// with each of these being URL encoded first. 1 We’ve given you a simple utility function
+	// with each of these being URL encoded first. We’ve given you a simple utility function
 	// to handle the details of the HTTP Basic encoding.
 	var headers = {
 		'Content-Type': 'application/x-www-form-urlencoded',
@@ -228,9 +228,12 @@ var encodeClientCredentials = function(clientId, clientSecret) {
 
 app.use('/', express.static('files/client'));
 
+
 var server = app.listen(9000, 'localhost', function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('OAuth Client is listening at http://%s:%s', host, port);
 });
- 
+
+
+

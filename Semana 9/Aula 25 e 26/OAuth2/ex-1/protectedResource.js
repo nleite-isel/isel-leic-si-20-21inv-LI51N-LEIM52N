@@ -35,6 +35,7 @@ var getAccessToken = function(req, res, next) {
 	}
 	
 	console.log('Incoming token: %s', inToken);
+	
 	nosql.one(function(token) {
 		if (token.access_token == inToken) {
 			return token;	
@@ -49,6 +50,7 @@ var getAccessToken = function(req, res, next) {
 		next();
 		return;
 	});
+	
 };
 
 app.options('/resource', cors());

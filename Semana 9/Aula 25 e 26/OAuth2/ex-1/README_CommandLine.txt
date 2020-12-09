@@ -3,6 +3,15 @@ In each, run:
 
 npm install
 
+/////////////////////////////////////
+
+ATTENTION: The code runs on 
+
+Node.JS version 8.17.0
+
+/////////////////////////////////////
+
+
 Then, start each server in its own window
 
 node authorizationServer.js
