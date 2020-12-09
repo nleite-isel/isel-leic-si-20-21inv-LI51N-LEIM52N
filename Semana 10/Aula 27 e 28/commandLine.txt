@@ -1,0 +1,53 @@
+npm install
+
+npm install express
+
+npm install jsonwebtoken
+
+node relying-party-demo.js 
+
+
+////////////////////////////
+
+# Create Client account in
+Console do Google Cloud Platform
+https://console.developers.google.com/?hl=pt-BR
+
+Passos:
+
+Criar um novo projeto
+
+- Ir para "Credenciais"
+ + Criar Credenciais: ID do client OAuth
+ Tipo de Aplicativo: Aplicativo da Web
+ Nome: e.g., "Cliente Web - Open ID test"
+ Origens JavaScript autorizadas: 
+    URI: http://localhost:3001
+ URIs de redirecionamento autorizados: 
+    URI: http://localhost:3001/googlecallback
+
+Selecionar CRIAR
+////////////////////////////
+
+
+Este é seu ID do cliente
+yyy
+
+Esta é sua chave secreta do cliente
+yyyzzzz
+
+# On linux with the shell bash, you create environment variables like this (in the console):
+#export FOO=bar
+
+export CLIENT_ID=yyy
+export CLIENT_SECRET=yyyzzzz
+
+echo $CLIENT_ID
+echo $CLIENT_SECRET
+
+
+# Access
+
+http://localhost:3001/ 
+
+in the browser to connect to relying-party
