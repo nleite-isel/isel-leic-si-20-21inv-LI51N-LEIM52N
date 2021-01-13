@@ -1,0 +1,64 @@
+
+Preliminary:
+- Install Ubuntu 16.04 32 bit VM from SEED Labs
+- configure shared folder and execute the following command
+sudo adduser your_username vboxsf 
+with "your_username" = seed
+
+
+# Disable Address Randomization
+sudo sysctl -w kernel.randomize_va_space=0
+
+# Compile stack by making stack executable (-z execstack) and by disabling
+# stack guard (-fno-stack-protector)
+gcc -o stack -z execstack -fno-stack-protector stack.c
+
+sudo chown root stack
+
+sudo chmod 4755 stack
+
+# Run the following commands
+
+chmod u+x exploit.py
+
+rm badfile
+
+./exploit.py
+
+./stack
+
+
+print  process info>
+
+$id
+
+//////////// DBG /////
+
+gcc -z execstack -fno-stack-protector -g -o stack_dbg stack.c
+
+touch badfile
+
+gdb stack_dbg
+
+Inside gdb:
+
+b foo  // breakpoint in foo function
+
+run // Start debugging
+
+p $ebp // print ebp address
+
+$1 = (void *) 0xbfffeb58
+
+p &buffer
+$2 = (char (*)[100]) 0xbfffeaec
+
+p/d 0xbfffeb58-0xbfffeaec
+$3 = 108
+
+
+**copy ebp address to exploit.py 
+
+
+
+
